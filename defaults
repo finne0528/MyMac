@@ -1,0 +1,4 @@
+# mac defaults settings
+defaults write com.apple.desktopservices DSDontWriteNetworkStores True
+Killall Finder
+echo "complete"

@@ -1,0 +1,4 @@
+
+# homebrew settings
+eval "$(/opt/homebrew/bin/brew shallenv)"
+

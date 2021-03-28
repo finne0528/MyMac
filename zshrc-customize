@@ -1,0 +1,10 @@
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# anyenv settings
+eval "$(anyenv init -)"
+
+# nodenv npm settings
+export PATH="$HOME/.anyenv/envs/nodenv/node_modules/.bin:$PATH"
+
