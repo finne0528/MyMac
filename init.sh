@@ -43,6 +43,9 @@ go get github.com/google/skicka
 skicka init
 skicka download .ssh ~/.ssh
 
+find ~/.ssh -type d -print | xargs chmod 755
+find ~/.ssh -type f -print | xargs chmod 600
+
 # vim settings
 mkdir ~/.vim
 mkdir ~/.vim/colors
