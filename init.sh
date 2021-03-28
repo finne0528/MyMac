@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 cd $(dirname $0)
 
@@ -20,17 +20,22 @@ done
 
 cp fonts/* ~/Library/fonts/
 
-sed -i -e 's/sorin/powerlevel10k/g' ~/.zpreztorc
+mv ~/.zpreztorc ~/.zpreztorc_temp
+sed -e 's/sorin/powerlevel10k/g' ~/.zpreztorc_temp > ~/.zpreztorc
+rm -rf ~/.zpreztorc_temp
 
 # source .zpreztorc
 source ~/.zpreztorc
 
 # homebrew settings on .zprofile
-echo "$(cat ./zprofile-customize)" > ~/.zprofile
+echo "$(cat ./zprofile-customize)" >> ~/.zprofile
+
+# source .zprofile
+source ~/.zprofile
 
 # add customize to zshrc
-echo "$(cat ./zshrc-customize)" > ~/.zshrc
-echo "$(cat ./aliases)" > ~/.zshrc
+echo "$(cat ./zshrc-customize)" >> ~/.zshrc
+echo "$(cat ./aliases)" >> ~/.zshrc
 
 # source .zshrc
 source ~/.zshrc
