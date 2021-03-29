@@ -5,9 +5,17 @@ cd $(dirname $0)
 # check signed in to AppStore.
 echo -n "Do you signed in to AppStore? (y/N): "
 if read -q; then
-    echo "\nThank you. the application will be installed from AppStore with homebrew mas."
+    echo "\nThank you. the application will be installed from AppStore with homebrew mas.\n"
 else
-    echo "\nPlease sign in to install from AppStore with homebrew mas."
+    echo "\nPlease sign in to install from AppStore with homebrew mas.\n"
+    exit
+fi
+
+echo -n "Do you configure google drive security settings? (y/N): "
+if read -q; then
+    echo "\nThank you. You can use Google Drive App!\n"
+else
+    echo "\nPlease configure google drive security settings.\n"
     exit
 fi
 
