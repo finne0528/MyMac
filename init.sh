@@ -40,9 +40,10 @@ echo "=============================="
 echo "============================================="
 echo "Install goenv with anyenv to install skicka !"
 echo "============================================="
+eval "$(anyenv init -)"
 anyenv install --init
 anyenv install goenv
-exec $SHELL -l
+eval "$(anyenv init -)"
 
 echo "==============================="
 echo "Install golang latest version !"
