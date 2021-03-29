@@ -56,7 +56,7 @@ eval "$(anyenv init -)"
 echo "==============================="
 echo "Install golang latest version !"
 echo "==============================="
-GO_LATEST_VERSION=$(goenv install -l | grep -v - | tail -1)
+GO_LATEST_VERSION=$(goenv install -l | grep -v - | tail -1 | xargs)
 goenv install $GO_LATEST_VERSION
 goenv global $GO_LATEST_VERSION
 
