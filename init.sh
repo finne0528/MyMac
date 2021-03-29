@@ -19,6 +19,14 @@ else
     exit
 fi
 
+echo -n "Do you enable google drive api on google cloud platform? (y/N): "
+if read -q; then
+    echo "\nThank you. You can use Skicka!"
+else
+    echo "\nPlease enable google drive api on google cloud platform for use skicka."
+    exit
+fi
+
 # install homebrew
 if which brew > /dev/null; then
     echo 'Homebrew already installed.'
@@ -65,6 +73,12 @@ echo "Install skicka with golang !"
 echo "============================"
 go get github.com/google/skicka
 skicka init
+echo -n "Enter skicka client id: "
+read SKICKA_CLIENT_ID
+echo -n "Enter skicka client secret: "
+read SKICKA_SECRET
+sed -i -e "s/;clientid=YOUR_GOOGLE_APP_CLIENT_ID/clientid=$SKICKA_CLIENT_ID/g" ~/.skicka.config
+sed -i -e "s/;clientsecret=YOUR_GOOGLE_APP_SECRET/clientsecret=$SKICKA_SECRET/g" ~/.skicka.config
 
 echo "========================="
 echo "Download .ssh to ~/.ssh !"
