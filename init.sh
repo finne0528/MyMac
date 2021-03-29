@@ -15,48 +15,78 @@ fi
 if which brew > /dev/null; then
     echo 'Homebrew already installed.'
 else
+    echo "=================="
+    echo "Install homebrew !"
+    echo "=================="
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # application install with homebrew
+echo "=============================================="
+echo "Applications will be installed with Homebrew !"
+echo "=============================================="
 brew doctor
 brew bundle
 echo "please self install 'powermymac'"
 
 # execute defaults settings
+echo "=============================="
+echo "Execute Mac default settings !"
+echo "=============================="
 /bin/zsh ./defaults
 
-# enable aliases
-/bin/zsh ./aliases
-
 # skicka install and download .ssh from google drive
+echo "============================================="
+echo "Install goenv with anyenv to install skicka !"
+echo "============================================="
 anyenv install --init
 anyenv install goenv
-relogin
+exec $SHELL -l
 
+echo "==============================="
+echo "Install golang latest version !"
+echo "==============================="
 GO_LATEST_VERSION=$(goenv install -l | grep -v - | tail -1)
 goenv install $GO_LATEST_VERSION
 goenv global $GO_LATEST_VERSION
 
+echo "============================"
+echo "Install skicka with golang !"
+echo "============================"
 go get github.com/google/skicka
 skicka init
+
+echo "========================="
+echo "Download .ssh to ~/.ssh !"
+echo "========================="
 skicka download .ssh ~/.ssh
 
 find ~/.ssh -type d -print | xargs chmod 755
 find ~/.ssh -type f -print | xargs chmod 600
 
 # vim settings
+echo "==========================================="
+echo "Configure vim settings and plugin manager !"
+echo "==========================================="
 mkdir ~/.vim
 mkdir ~/.vim/colors
+mkdir ~/.vim/bundle
 cp vim/vimrc ~/.vimrc
 cp vim/gvimrc ~/.gvimrc
 cp vim/colors/molokai.vim ~/.vim/colors/molokai.vim
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # install zprezto
+echo "====================================="
+echo "Install zprezto for iTerm2 customize."
+echo "====================================="
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 # zprezto settings
+echo "==================================="
+echo "Configure zprezto - powerlevel10k !"
+echo "==================================="
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
   ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
