@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+cd $(dirname $0)/../plist
+
+for plist (*.plist) {
+    echo $plist
+}
+

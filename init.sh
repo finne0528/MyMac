@@ -50,7 +50,7 @@ echo "please self install 'powermymac'"
 echo "=============================="
 echo "Execute Mac default settings !"
 echo "=============================="
-/bin/zsh ./defaults
+/bin/zsh ./scripts/defaults
 
 # skicka install and download .ssh from google drive
 echo "============================================="
@@ -97,10 +97,11 @@ echo "==========================================="
 mkdir ~/.vim
 mkdir ~/.vim/colors
 mkdir ~/.vim/bundle
-cp vim/vimrc ~/.vimrc
-cp vim/gvimrc ~/.gvimrc
-cp vim/colors/molokai.vim ~/.vim/colors/molokai.vim
+ln -s config/vim/vimrc ~/.vimrc
+ln -s config/vim/gvimrc ~/.gvimrc
+ln -s config/vim/colors/molokai.vim ~/.vim/colors/molokai.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+echo "Please run ':PluginInstall' on Vim."
 
 # install zprezto
 echo "====================================="
@@ -138,6 +139,12 @@ echo "$(cat ./aliases)" >> ~/.zshrc
 
 # source .zshrc
 source ~/.zshrc
+
+# configure iterm2 settings
+echo "======================================="
+echo "Apply application settings with plist !"
+echo "======================================="
+/bin/zsh ./scripts/configure-plist
 
 # open iterm2 to setting zprezto
 open /Applications/iTerm.app
