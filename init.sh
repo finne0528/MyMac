@@ -72,6 +72,8 @@ echo "============================"
 echo "Install skicka with golang !"
 echo "============================"
 go get github.com/google/skicka
+eval "$(anyenv init -)"
+
 skicka init
 echo -n "Enter skicka client id: "
 read SKICKA_CLIENT_ID
