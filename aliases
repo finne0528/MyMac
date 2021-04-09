@@ -1,8 +1,0 @@
-
-# aliases
-alias relogin='exec $SHELL -l'
-alias la='ls -a'
-alias ll='ls -l'
-alias lla='ls -la'
-alias drive="skicka"
-

@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-cd $(dirname $0)
+cd $(dirname $0) || exit
 
 # check signed in to AppStore.
 echo -n "Do you signed in to AppStore? (y/N): "
@@ -31,46 +31,47 @@ fi
 if which brew > /dev/null; then
     echo 'Homebrew already installed.'
 else
-    echo "=================="
-    echo "Install homebrew !"
-    echo "=================="
+    echo "**********************"
+    echo "* Install homebrew ! *"
+    echo "**********************"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # application install with homebrew
-echo "=============================================="
-echo "Applications will be installed with Homebrew !"
-echo "=============================================="
+echo "**************************************************"
+echo "* Applications will be installed with Homebrew ! *"
+echo "**************************************************"
 brew doctor
+brew update
 brew bundle
 echo "please self install 'powermymac'"
 
-# execute defaults settings
-echo "=============================="
-echo "Execute Mac default settings !"
-echo "=============================="
-/bin/zsh ./scripts/defaults
+# execute system settings script
+echo "****************************************"
+echo "* Execute Mac system settings script ! *"
+echo "****************************************"
+/bin/zsh ./scripts/system_setting.sh
 
 # skicka install and download .ssh from google drive
-echo "============================================="
-echo "Install goenv with anyenv to install skicka !"
-echo "============================================="
+echo "*************************************************"
+echo "* Install goenv with anyenv to install skicka ! *"
+echo "*************************************************"
 eval "$(anyenv init -)"
 anyenv install --init
 anyenv install goenv
 eval "$(anyenv init -)"
 
-echo "==============================="
-echo "Install golang latest version !"
-echo "==============================="
+echo "***********************************"
+echo "* Install golang latest version ! *"
+echo "***********************************"
 GO_LATEST_VERSION=$(goenv install -l | grep -v - | tail -1 | xargs)
 goenv install $GO_LATEST_VERSION
 goenv global $GO_LATEST_VERSION
 
-echo "============================"
-echo "Install skicka with golang !"
-echo "============================"
+echo "********************************"
+echo "* Install skicka with golang ! *"
+echo "********************************"
 go get github.com/google/skicka
 eval "$(anyenv init -)"
 
@@ -82,72 +83,41 @@ read SKICKA_SECRET
 sed -i -e "s/;clientid=YOUR_GOOGLE_APP_CLIENT_ID/clientid=$SKICKA_CLIENT_ID/g" ~/.skicka.config
 sed -i -e "s/;clientsecret=YOUR_GOOGLE_APP_SECRET/clientsecret=$SKICKA_SECRET/g" ~/.skicka.config
 
-echo "========================="
-echo "Download .ssh to ~/.ssh !"
-echo "========================="
+echo "*****************************"
+echo "* Download .ssh to ~/.ssh ! *"
+echo "*****************************"
 skicka download .ssh ~/.ssh
 
 find ~/.ssh -type d -print | xargs chmod 755
 find ~/.ssh -type f -print | xargs chmod 600
 
+# clone MyMac-Config and setup dotfiles, app config files and plists
+echo "*************************************************************************"
+echo "* Clone MyMac-Config and Setup dotfiles, app config files, and plists ! *"
+echo "*************************************************************************"
+git clone git@github.com:finne0528/MyMac-Config.git config
+/bin/zsh config/setup.sh
+
 # vim settings
-echo "==========================================="
-echo "Configure vim settings and plugin manager !"
-echo "==========================================="
-mkdir ~/.vim
-mkdir ~/.vim/colors
+echo "**********************************"
+echo "* Configure vim plugin manager ! *"
+echo "**********************************"
 mkdir ~/.vim/bundle
-ln -s config/vim/vimrc ~/.vimrc
-ln -s config/vim/gvimrc ~/.gvimrc
-ln -s config/vim/colors/molokai.vim ~/.vim/colors/molokai.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo "Please run ':PluginInstall' on Vim."
 
 # install zprezto
-echo "====================================="
-echo "Install zprezto for iTerm2 customize."
-echo "====================================="
+echo "********************************************************"
+echo "* Install and Configure zprezto for iTerm2 customize ! *"
+echo "********************************************************"
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-
-# zprezto settings
-echo "==================================="
-echo "Configure zprezto - powerlevel10k !"
-echo "==================================="
-setopt EXTENDED_GLOB
-for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-done
 
 cp fonts/* ~/Library/fonts/
 
-mv ~/.zpreztorc ~/.zpreztorc_temp
-sed -e 's/sorin/powerlevel10k/g' ~/.zpreztorc_temp > ~/.zpreztorc
-rm -rf ~/.zpreztorc_temp
-
-# source .zpreztorc
-source ~/.zpreztorc
-
-# homebrew settings on .zprofile
-echo "$(cat ./zprofile-customize)" >> ~/.zprofile
-
-# source .zprofile
-source ~/.zprofile
-
-# add customize to zshrc
-echo "$(cat ./zshrc-customize)" >> ~/.zshrc
-echo "$(cat ./aliases)" >> ~/.zshrc
-
-# source .zshrc
-source ~/.zshrc
-
-# configure iterm2 settings
-echo "======================================="
-echo "Apply application settings with plist !"
-echo "======================================="
-/bin/zsh ./scripts/configure-plist
-
 # open iterm2 to setting zprezto
+echo "***************************************"
+echo "* Please configure zprezto on iTerm ! *"
+echo "***************************************"
 open /Applications/iTerm.app
 
 echo "finished !"
-
