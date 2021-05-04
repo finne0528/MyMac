@@ -13,6 +13,7 @@ brew "vim"
 brew "mysql"
 brew "exa"
 brew "bat"
+brew "awscli"
 
 cask "iterm2"
 cask "discord"
@@ -28,9 +29,13 @@ cask "geekbench"
 cask "1password"
 cask "alfred"
 cask "audirvana"
+cask "postman"
+cask "boostnote"
+cask "minecraft"
+cask "openemu"
+cask "tweeten"
 
 mas "LINE", id: 539883307
-mas "TweetDeck by Twitter", id: 485812721
 mas "Mail for Gmail", id: 1216244845
 
 # needs self install

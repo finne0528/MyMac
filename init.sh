@@ -19,14 +19,6 @@ else
     exit
 fi
 
-echo -n "Do you enable google drive api on google cloud platform? (y/N): "
-if read -q; then
-    echo "\nThank you. You can use Skicka!"
-else
-    echo "\nPlease enable google drive api on google cloud platform for use skicka."
-    exit
-fi
-
 # install homebrew
 if which brew > /dev/null; then
     echo 'Homebrew already installed.'
@@ -53,40 +45,13 @@ echo "* Execute Mac system settings script ! *"
 echo "****************************************"
 /bin/zsh ./scripts/system_setting.sh
 
-# skicka install and download .ssh from google drive
-echo "*************************************************"
-echo "* Install goenv with anyenv to install skicka ! *"
-echo "*************************************************"
-eval "$(anyenv init -)"
-anyenv install --init
-anyenv install goenv
-eval "$(anyenv init -)"
-
-echo "***********************************"
-echo "* Install golang latest version ! *"
-echo "***********************************"
-GO_LATEST_VERSION=$(goenv install -l | grep -v - | tail -1 | xargs)
-goenv install $GO_LATEST_VERSION
-goenv global $GO_LATEST_VERSION
-
-echo "********************************"
-echo "* Install skicka with golang ! *"
-echo "********************************"
-go get github.com/google/skicka
-eval "$(anyenv init -)"
-
-skicka init
-echo -n "Enter skicka client id: "
-read SKICKA_CLIENT_ID
-echo -n "Enter skicka client secret: "
-read SKICKA_SECRET
-sed -i -e "s/;clientid=YOUR_GOOGLE_APP_CLIENT_ID/clientid=$SKICKA_CLIENT_ID/g" ~/.skicka.config
-sed -i -e "s/;clientsecret=YOUR_GOOGLE_APP_SECRET/clientsecret=$SKICKA_SECRET/g" ~/.skicka.config
-
-echo "*****************************"
-echo "* Download .ssh to ~/.ssh ! *"
-echo "*****************************"
-skicka download .ssh ~/.ssh
+# download secret files from google drive
+echo -n "Press Enter when you can login to Google Drive > " || read enter
+echo "********************************************************"
+echo "* Create secret files symbolic links from Google Drive *"
+echo "********************************************************"
+ln -s /Users/finne/Google\ Drive/マイドライブ/MyMac/.ssh /Users/finne/.ssh
+ln -s /Users/finne/Google\ Drive/マイドライブ/MyMac/.aws /Users/finne/.aws
 
 find ~/.ssh -type d -print | xargs chmod 755
 find ~/.ssh -type f -print | xargs chmod 600
@@ -105,7 +70,6 @@ echo "**********************************"
 mkdir ~/.vim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo "Please run ':PluginInstall' on Vim."
-
 # install zprezto
 echo "********************************************************"
 echo "* Install and Configure zprezto for iTerm2 customize ! *"

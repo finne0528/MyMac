@@ -53,9 +53,12 @@ dockitems=(
   "Tweeten"         "com.builtbymeh.tweeten"                  "file:///Applications/Tweeten.app"
   "Discord"         "com.hnc.Discord"                         "file:///Applications/Discord.app"
   "Slack"           "com.tinyspeck.slackmacgap"               "file:///Applications/Slack.app"
+  "Boostnote"       "com.electron.boostnote"                  "file:///Applications/Boostnote.app"
+  "Postman"         "com.postmanlabs.mac"                     "file:///Applications/Postman.app"
   "Mail for Gmail"  "com.rockysandstudio.DeskApp-for-Gmail"   "file:///Applications/Mail%20for%20Gmail.app"
   "1Password 7"     "com.agilebits.onepassword7"              "file:///Applications/1Password%207.app"
   "Audirvana"       "com.audirvana.Audirvana"                 "file:///Applications/Audirvana.app"
+  "OpenEmu"         "org.openemu.OpenEmu"                     "file:///Applications/OpenEmu.app"
   "システム環境設定"   "com.apple.systempreferences"             "file:///System/Applications/System%20Preferences.app"
 )
 PLIST_PATH="$HOME/Library/Preferences/com.apple.dock.plist"
