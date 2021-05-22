@@ -81,9 +81,21 @@ cp fonts/* ~/Library/fonts/
 
 # clone git repositories
 echo "**************************"
-echo "* CLone git repositories *"
+echo "* Clone git repositories *"
 echo "**************************"
 /bin/zsh scripts/clone_repositories.sh
+
+# install envs
+echo "********************"
+echo "* Install envs app *"
+echo "********************"
+/bin/zsh scripts/install_envs.sh
+
+# configure git setting
+echo "*************************"
+echo "* Configure git setting *"
+echo "*************************"
+/bin/zsh scripts/git_setting.sh
 
 # open iterm2 to setting zprezto
 echo "***************************************"

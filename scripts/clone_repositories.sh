@@ -16,4 +16,5 @@ cd ..
 git clone git@github.com:finne0528/discordbot-template-for-kotlin.git
 git clone git@github.com:finne0528/watering.git
 git clone git@github.com:finne0528/voice-watcher.git
-
+git clone git@github.com:finne0528/MyMac.git
+git clone git@github.com:finne0528/MyMac-Config.git

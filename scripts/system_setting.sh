@@ -10,6 +10,7 @@ defaults write -g com.apple.trackpad.scaling 2
 defaults write -g AppleShowAllExtensions -bool True
 # タップでクリックを有効化
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool True
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool True
 # サイレントクリックを有効化
 defaults write com.apple.AppleMultitouchTrackpad ActuationStrength -int 0
 # 強めのクリックと感覚フィードバックを無効化
