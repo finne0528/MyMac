@@ -46,12 +46,13 @@ echo "****************************************"
 /bin/zsh ./scripts/system_setting.sh
 
 # download secret files from google drive
-echo -n "Press Enter when you can login to Google Drive > " || read enter
-echo "********************************************************"
-echo "* Create secret files symbolic links from Google Drive *"
-echo "********************************************************"
+echo -n "Press Enter when you can login to Google Drive > " && read enter
+echo "*************************************************"
+echo "* Create files symbolic links from Google Drive *"
+echo "*************************************************"
 ln -s /Users/finne/Google\ Drive/マイドライブ/MyMac/.ssh /Users/finne/.ssh
 ln -s /Users/finne/Google\ Drive/マイドライブ/MyMac/.aws /Users/finne/.aws
+ln -s /Users/finne/Google\ Drive/マイドライブ/Boostnote /Users/finne/Boostnote
 
 find ~/.ssh -type d -print | xargs chmod 755
 find ~/.ssh -type f -print | xargs chmod 600
@@ -77,6 +78,12 @@ echo "********************************************************"
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 cp fonts/* ~/Library/fonts/
+
+# clone git repositories
+echo "**************************"
+echo "* CLone git repositories *"
+echo "**************************"
+/bin/zsh scripts/clone_repositories.sh
 
 # open iterm2 to setting zprezto
 echo "***************************************"
