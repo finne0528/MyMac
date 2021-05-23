@@ -14,6 +14,7 @@ brew "mysql"
 brew "exa"
 brew "bat"
 brew "awscli"
+brew "unar"
 
 cask "iterm2"
 cask "discord"
